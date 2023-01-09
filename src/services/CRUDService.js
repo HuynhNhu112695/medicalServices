@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { Promise } from 'sequelize';
 import db from '../models/index';
 const salt = bcrypt.genSaltSync(10);
 
@@ -36,6 +37,18 @@ let hashUserPassword = (password) => {
     })
 }
 
+let getAllUser = async () => {
+    try {
+        let users = await db.User.findAll({ raw: true, });
+        return users;
+    } catch (e) {
+        return e;
+    }
+
+}
+
+
 module.exports = {
     createNewUser: createNewUser,
+    getAllUser: getAllUser,
 }
