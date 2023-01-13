@@ -24,6 +24,19 @@
     .table-bordered {
         margin: 50px 0;
     }
+
+    .button {
+        padding: 0 10px;
+        border-radius: 10px;
+    }
+
+    .edit {
+        color: blue;
+    }
+
+    .delete {
+        color: crimson;
+    }
 </style>
 
 <body>
@@ -37,6 +50,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Sex</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +73,10 @@
                         </td>
                         <td>
                             <%= dataTable[i].gender=='1' ?'male':'female' %>
+                        </td>
+                        <td>
+                            <a href="/edit-user?id=<%= dataTable[i].id %>"><button class="button edit">Edit</button></a>
+                            <a href=""><button class="button delete">Delete</button></a>
                         </td>
                     </tr>
                     <% } %>

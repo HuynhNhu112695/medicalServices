@@ -47,8 +47,41 @@ let getAllUser = async () => {
 
 }
 
+let getUserInfoById = async (id) => {
+    try {
+        let userData = await db.User.findOne({
+            where: { id: id },
+            raw: true,
+        });
+
+        return userData;
+    } catch (e) {
+        return e;
+    }
+}
+
+let updateUser = async (data) => {
+    try {
+        await db.User.update({
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            address: data.address,
+            phonenumber: data.phonenumber,
+            gender: data.gender === '1' ? true : false,
+            roleId: data.roleId
+        }, { where: { id: data.id } })
+
+        return 'update user succeed';
+    } catch (e) {
+        return e;
+    }
+
+}
 
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
+    getUserInfoById: getUserInfoById,
+    updateUser: updateUser,
 }
