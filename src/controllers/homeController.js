@@ -41,7 +41,20 @@ let getEditUser = async (req, res) => {
 let postUpdateUser = async (req, res) => {
     let message = await CRUDService.updateUser(req.body);
 
-    return res.render('update user success');
+    return res.send('update user success');
+}
+
+let deleteUser = async (req, res) => {
+    let userId = req.query.id;
+    if (userId) {
+        await CRUDService.deleteUserById(userId);
+
+        return res.send('Delete user succeed!');
+    } else {
+        return res.send('User not found!');
+    }
+
+    return res.send('delete user');
 }
 
 module.exports = {
@@ -51,4 +64,5 @@ module.exports = {
     getDisplayCRUD: getDisplayCRUD,
     getEditUser: getEditUser,
     postUpdateUser: postUpdateUser,
+    deleteUser: deleteUser,
 }
