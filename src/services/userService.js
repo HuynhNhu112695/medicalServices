@@ -23,7 +23,6 @@ let handleUserLogin = async (email, password) => {
                     // userData.userId = user.id;
                     // userData.userEmail = user.email;
                     // userData.userRoleId = user.roleId;
-                    console.log(user)
                     delete user.password;
                     userData.user = user;
                 } else {
@@ -60,7 +59,32 @@ let checkUserEmail = async (userEmail) => {
     }
 }
 
+let getAllUsers = async (userId) => {
+    try {
+        let users = 'abc';
+        if (userId === 'ALL') {
+            users = await db.User.findAll({
+                attributes: {
+                    exclude: ['password']
+                }
+            });
+        }
+        if (userId && userId !== 'ALL') {
+            users = await db.User.findOne({
+                where: { id: userId },
+                attributes: {
+                    exclude: ['password']
+                }
+            });
+        }
+        return users;
+    } catch (e) {
+        return e;
+    }
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     checkUserEmail: checkUserEmail,
+    getAllUsers: getAllUsers
 }
